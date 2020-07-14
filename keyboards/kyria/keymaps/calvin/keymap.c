@@ -13,23 +13,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE
+bool is_cmd_ctrl_active = false;
+uint16_t cmd_ctrl_timer = 0;
+
 void encoder_update_user(uint8_t index, bool clockwise) {
+    //xcode file history scrubbing: cmd+ctrl+(left|right)
     if (index == 0) {
-        // Volume control
+        if (!is_cmd_ctrl_active) {
+            is_cmd_ctrl_active = true;
+            register_code(KC_LCTRL);
+	    register_code(KC_LGUI);
+        }
+      
+        cmd_ctrl_timer = timer_read();
+
+	if (clockwise) {
+            tap_code16(KC_LEFT);
+	} else {
+	    tap_code16(KC_RIGHT);
+        }
+    }
+    else if (index == 1) {
+	//volume control
         if (clockwise) {
             tap_code(KC_VOLD);
         } else {
             tap_code(KC_VOLU);
         }
     }
-    else if (index == 1) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
+}
+
+void matrix_scan_user(void) {
+  if (is_cmd_ctrl_active) {
+    if (timer_elapsed(cmd_ctrl_timer) > 500) {
+      is_cmd_ctrl_active = false;
+      unregister_code(KC_LCTRL);
+      unregister_code(KC_LGUI);
     }
+  }
 }
 #endif
 
