@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 //Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
+// extern rgblight_config_t rgblight_config;
 
 extern uint8_t is_master;
 
@@ -54,12 +54,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-void matrix_init_user(void) {
-  sethsv(HSV_WHITE, (LED_TYPE *)&led[0]); // led 0
-  sethsv(HSV_RED,   (LED_TYPE *)&led[1]); // led 1
-  sethsv(HSV_GREEN, (LED_TYPE *)&led[2]); // led 2
-  rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -79,4 +73,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   return true;
+}
+
+void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
+
+void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
+
+void matrix_init_user(void) {
+    rgb_matrix_enable();
+    rgb_matrix_mode(12);
 }
