@@ -9,6 +9,7 @@ extern uint8_t is_master;
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
+#define SPOTLIGHT LGUI(KC_SPC)
 
 enum custom_keycodes {
   LOWER,
@@ -24,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_QUOT, KC_EQL, KC_SCLN,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL,   RAISE,  KC_DOT,     KC_SPC,  LOWER,  KC_RGUI \
+                                          KC_LCTL, KC_DOT, RAISE,        LOWER,   KC_SPC,  KC_RGUI \
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -37,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TRNS, KC_P7,   KC_P8,   KC_P9,   KC_CIRC, KC_DLR,                      KC_PERC, KC_ASTR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS,  KC_P0,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS \
+                                          KC_TRNS,  KC_P0,  KC_HANJ,   KC_TRNS, KC_TRNS, KC_TRNS \
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -49,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, KC_TRNS, KC_LT,  KC_GT,   KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS \
+                                          KC_TRNS, KC_TRNS, KC_TRNS,   SPOTLIGHT, KC_TRNS, KC_TRNS \
                                       //`--------------------------'  `--------------------------'
   )
 };
