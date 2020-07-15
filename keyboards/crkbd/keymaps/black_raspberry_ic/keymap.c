@@ -16,6 +16,11 @@ enum custom_keycodes {
   RAISE
 };
 
+enum tap_dance_codes {
+  TD_COLON,
+  TD_QUOT
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -23,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_MINS, KC_SFTENT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_QUOT, KC_EQL, KC_SCLN,\
+      KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,   KC_M,     KC_COMM, TD(TD_QUOT), KC_EQL, TD(TD_COLON),\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL, KC_DOT, RAISE,        LOWER,   KC_SPC,  KC_RGUI \
                                       //`--------------------------'  `--------------------------'
@@ -32,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TRNS, KC_P1,   KC_P2,   KC_P3,   KC_AMPR, KC_QUES,                     KC_BSLS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,\
+      KC_TRNS, KC_P1,   KC_P2,   KC_P3,   KC_AMPR, KC_QUES,                     KC_BSLS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TRNS, KC_P4,   KC_P5,   KC_P6,   KC_PIPE, KC_PSLS,                     KC_HASH, KC_AT,   KC_EXLM,  KC_TRNS, KC_TRNS, KC_TRNS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -84,3 +89,41 @@ void matrix_init_user(void) {
     rgb_matrix_sethsv_noeeprom(214, 221, 173);
     rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
 }
+
+void dance_quote_finished(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code(KC_QUOT);
+    } else {
+        register_code16(KC_DQUO);
+    }
+}
+
+void dance_quote_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        unregister_code(KC_QUOT);
+    } else {
+        unregister_code16(KC_DQUO);
+    }
+}
+
+void dance_colon_finished(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code(KC_SCLN);
+    } else {
+        register_code16(KC_COLN);
+    }
+}
+
+void dance_colon_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        unregister_code(KC_SCLN);
+    } else {
+        unregister_code16(KC_COLN);
+    }
+}
+
+// All tap dance functions would go here. Only showing this one.
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_COLON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_colon_finished, dance_colon_reset),
+    [TD_QUOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_quote_finished, dance_quote_reset)
+};
