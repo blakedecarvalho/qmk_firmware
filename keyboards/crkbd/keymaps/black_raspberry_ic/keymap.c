@@ -80,6 +80,6 @@ void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
 void matrix_init_user(void) {
-    rgb_matrix_enable();
-    rgb_matrix_mode(12);
+    rgb_matrix_sethsv_noeeprom(214, 221, 173);
+    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
 }
