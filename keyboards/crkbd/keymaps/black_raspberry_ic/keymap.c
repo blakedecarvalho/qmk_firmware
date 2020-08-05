@@ -21,6 +21,12 @@ enum tap_dance_codes {
   TD_QUOT
 };
 
+// All tap dance functions go here.
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_COLON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_colon_finished, dance_colon_reset),
+    [TD_QUOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_quote_finished, dance_quote_reset)
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -121,9 +127,3 @@ void dance_colon_reset(qk_tap_dance_state_t *state, void *user_data) {
         unregister_code16(KC_COLN);
     }
 }
-
-// All tap dance functions would go here. Only showing this one.
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_COLON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_colon_finished, dance_colon_reset),
-    [TD_QUOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_quote_finished, dance_quote_reset)
-};
