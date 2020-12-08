@@ -25,10 +25,10 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(/* Base */
-                 XXXXXXX,  XXXXXXX,  XXXXXXX,
-                 XXXXXXX,  XXXXXXX,  XXXXXXX,
-                 HS_PCB,   HS_CASE,  XXXXXXX,
-                 XXXXXXX,  XXXXXXX,  XXXXXXX)
+                 KC_KP_ENTER,  KC_KP_1,  KC_KP_2,
+                 KC_KP_3,  KC_KP_4,  KC_KP_5,
+                 KC_KP_6,   KC_KP_7,  KC_KP_8,
+                 KC_KP_9,  KC_KP_0,  KC_KP_DOT)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -52,7 +52,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_ENABLE
 void keyboard_post_init_user(void) {
   rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-//   32.58, 252.45, 237.15 this is a gold ish deep yellow color
   rgblight_sethsv_noeeprom(33, 252, 200);
   rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 }
@@ -64,7 +63,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 static void oled_draw(void) {
-  oled_write_P(PSTR("deetee"), false);
+  oled_write_P(PSTR("~ ~ deetee ~ ~"), false);
 }
 
 void oled_task_user(void) {
@@ -83,9 +82,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Move whole words. Hold shift to select while moving.
         if (clockwise) {
-            tap_code16(C(KC_RGHT));
+            tap_code16(KC_VOLU);
         } else {
-            tap_code16(C(KC_LEFT));
+            tap_code16(KC_VOLD);
         }
     }
 }
