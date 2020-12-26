@@ -37,7 +37,7 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = yes           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
@@ -45,4 +45,3 @@ ENCODER_ENABLE = yes       # ENables the use of one or more encoders
 OLED_DRIVER_ENABLE = yes   # Enables the use of OLED displays
 HAPTIC_ENABLE += DRV2605L
 LINK_TIME_OPTIMIZATION_ENABLE =yes 
-AUDIO_ENABLE = yes

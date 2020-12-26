@@ -25,10 +25,10 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(/* Base */
-                 KC_KP_ENTER,  KC_KP_1,  KC_KP_2,
-                 KC_KP_3,  KC_KP_4,  KC_KP_5,
-                 KC_KP_6,   KC_KP_7,  KC_KP_8,
-                 KC_KP_9,  KC_KP_0,  KC_KP_DOT)
+                 KC_MUTE,  KC_KP_1,  KC_KP_2,
+                 KC_MEDIA_PREV_TRACK,  KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_NEXT_TRACK,
+                 LCTL(KC_G),   LCTL(KC_H),  LCTL(KC_T),
+                 LCTL(KC_B),  LCTL(KC_N),  LCTL(KC_Y))
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -63,7 +63,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 static void oled_draw(void) {
-  oled_write_P(PSTR("~ ~ deetee ~ ~"), false);
+  oled_write_P(PSTR("~ ~ deetee! ~ ~"), false);
 }
 
 void oled_task_user(void) {
